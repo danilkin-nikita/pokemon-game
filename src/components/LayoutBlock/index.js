@@ -11,13 +11,17 @@ const Layout = ({id, title, desc, urlBg, colorBg}) => {
       }>
       <div className={style.wrapper}>
           <article>
-              <div className={style.title}>
+            {
+              title && <div className={style.title}>
                   <h3>{title}</h3>
                   <span className={style.separator}></span>
               </div>
-              <div className={style.desc + ' ' + style.full}>
+            }
+            {
+              desc && <div className={style.desc + ' ' + style.full}>
                   <p>{desc}</p>
               </div>
+            }
           </article>
       </div>
     </section>
