@@ -1,6 +1,6 @@
 import style from './style.module.css';
 
-const Layout = ({id, title, desc, urlBg, colorBg}) => {
+const Layout = ({id, title, urlBg, colorBg, children}) => {
   const StyleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : colorBg ? {backgroundColor: colorBg} : {};
   return (
     <section
@@ -17,8 +17,8 @@ const Layout = ({id, title, desc, urlBg, colorBg}) => {
               </div>
             }
             {
-              desc && <div className={style.desc + ' ' + style.full}>
-                  <p>{desc}</p>
+              children && <div className={`${style.desc} ${style.full}`}>
+                 {children}
               </div>
             }
           </article>
