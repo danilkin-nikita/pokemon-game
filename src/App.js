@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 
 import bg1 from './components/LayoutBlock/img/bg1.jpg';
 import bg2 from './components/LayoutBlock/img/bg2.jpg';
-import bg3 from './components/LayoutBlock/img/bg3.jpg';
+// import bg3 from './components/LayoutBlock/img/bg3.jpg';
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         descr="This is Description!"
      />
      <Layout
-        if="first"
+        id="first"
         title="Pocemon"
         desc="Game"
         urlBg={bg1}

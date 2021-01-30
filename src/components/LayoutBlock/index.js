@@ -1,14 +1,13 @@
 import style from './style.module.css';
 
 const Layout = ({id, title, desc, urlBg, colorBg}) => {
+  const StyleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : colorBg ? {backgroundColor: colorBg} : {};
   return (
     <section
       className={style.root}
       id={id} 
-      style={
-        {backgroundImage: `url(${urlBg})`,
-         backgroundColor: colorBg}
-      }>
+      style={StyleRoot}
+      >
       <div className={style.wrapper}>
           <article>
             {
