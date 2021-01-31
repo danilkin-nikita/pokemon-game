@@ -166,6 +166,7 @@ Each player has five cards in a hand and the aim is to capture the opponent's ca
         id="cards"
         title="This is First Layout"
         colorBg="#202736"
+        titleColor="#fff"
      >
         <div className={style.flex}>
             {
