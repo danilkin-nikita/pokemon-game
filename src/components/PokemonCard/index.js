@@ -6,11 +6,11 @@ import cardBackSide from './img/card-back-side.jpg';
 
 const PokemonCard = ({name, img, id, type, values}) => {
   const [isActive, setActive] = useState(false);
-  const handler = () => {
+  const rootClickHandler = () => {
       setActive(!isActive);
   }
   return (
-    <div className={style.root} onClick={handler}>
+    <div className={style.root} onClick={rootClickHandler}>
       <div className={`${style.pokemonCard} ${isActive ? style.active : ''}`} >
         <div className={style.cardFront}>
             <div className={`${style.wrap} ${style.front}`}>
