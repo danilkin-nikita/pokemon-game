@@ -1,7 +1,8 @@
 import style from './style.module.css';
 
-const Layout = ({id, title, desc, urlBg, colorBg}) => {
+const Layout = ({id, title, urlBg, colorBg, titleColor, children}) => {
   const StyleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : colorBg ? {backgroundColor: colorBg} : {};
+  const StyleTitle = titleColor ? {color: titleColor} : {};
   return (
     <section
       className={style.root}
@@ -12,13 +13,13 @@ const Layout = ({id, title, desc, urlBg, colorBg}) => {
           <article>
             {
               title && <div className={style.title}>
-                  <h3>{title}</h3>
+                  <h3 style={StyleTitle}>{title}</h3>
                   <span className={style.separator}></span>
               </div>
             }
             {
-              desc && <div className={style.desc + ' ' + style.full}>
-                  <p>{desc}</p>
+              children && <div className={`${style.desc} ${style.full}`}>
+                 {children}
               </div>
             }
           </article>
