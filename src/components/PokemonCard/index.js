@@ -4,11 +4,11 @@ import cardBackSide from '../../assets/card-back-side.jpg';
 
 import style from './style.module.css';
 
-const PokemonCard = ({name, img, id, type, values, isActive, flipTheCard}) => {
+const PokemonCard = ({name, img, id, type, values, isActive, onClickCard}) => {
   
   return (
     <div className={style.root}>
-      <div className={cn(style.pokemonCard, {[style.active]: isActive === id})} onClick={() => flipTheCard(id)}>
+      <div className={cn(style.pokemonCard, {[style.active]: isActive})} onClick={() => onClickCard(id)}>
         <div className={style.cardFront}>
             <div className={cn(style.wrap, style.front)}>
                 <div className={cn(style.pokemon, style[type])}>

@@ -138,16 +138,20 @@ const POKEMONS = [
   }
 ];
 
-const Pokemons = POKEMONS.slice();
-
 const GamePage = () => {
 
-  const [isActive, setActive] = useState(null);
+  const [pokemons, setPokemons] = useState(POKEMONS);
 
-  const activeCardState = (idCardActive) => {
-    setActive(idCardActive);
+  const activeCardState = (id) => {
+    setPokemons(prevState => {
+      return Array.from(prevState, (item) => {
+        if (item.id === id) {
+          item.active = !item.active;
+        }
+        return item;
+      });
+    });
   };
-  
   return (
     <>
        <Layout
@@ -158,15 +162,15 @@ const GamePage = () => {
         >
           <div className={style.flex}>
               {
-                Pokemons.map(item => <PokemonCard 
+                pokemons.map(item => <PokemonCard 
                   key={item.id}
                   id={item.id}
                   name={item.name}
                   values={item.values}
                   img={item.img}
                   type={item.type}
-                  flipTheCard={(idCardActive) => activeCardState(idCardActive)}
-                  isActive={isActive}/>)
+                  onClickCard={(id) => activeCardState(id)}
+                  isActive={item.active}/>)
               }
           </div>
      </Layout>
