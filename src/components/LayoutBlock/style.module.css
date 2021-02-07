@@ -76,6 +76,7 @@
 
   .root .desc {
     grid-column-end: -1;
+    text-align: center;
   }
 }
 
