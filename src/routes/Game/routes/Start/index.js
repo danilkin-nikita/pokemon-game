@@ -1,4 +1,5 @@
 import {useState, useEffect, useContext} from 'react';
+import {useHistory} from 'react-router-dom';
 import Layout from '../../../../components/LayoutBlock';
 import PokemonCard from '../../../../components/PokemonCard';
 import {FireBaseContext} from '../../../../context/firebaseContext';
@@ -7,71 +8,32 @@ import style from './style.module.css';
 
 const StartPage = () => {
   const firebase = useContext(FireBaseContext);
-  const [pokemons, setPokemons] = useState({});
   const pokemonContext = useContext(PokemonContext);
+  const history = useHistory();
+  const [pokemons, setPokemons] = useState({});
 
   useEffect(() => {
     firebase.getPokemonSoket((pokemons) => {
       setPokemons(pokemons);
     });
+
+    return () => firebase.offPokemonSoket();
   }, []);
 
-  const handleChangeActive = (id) => {
-    setPokemons(prevState => {
-     
-      return Object.entries(prevState).reduce((acc, item) => {
-          const pokemon = {...item[1]};
-          if (pokemon.id === id) {
-            pokemon.selected = !pokemon.selected;
-            if (pokemon.selected === true) {
-              // pokemonContext.handlerIsSelect();
-            }
-          }
-
-          acc[item[0]] = pokemon;
-
-          const selectPokemon = Object.values(pokemons).filter(item => item.selected);
-          pokemonContext.handlerIsSelect(selectPokemon);
-
-          // firebase.postPokemon(item[0], pokemon);
-          
-          return acc;
-      }, {});
-    });
+  const handleChangeSelected = (key) => {
+    const pokemon = {...pokemons[key]};
+    pokemonContext.onSelectedPokemons(key, pokemon);
+    setPokemons(prevState => ({
+      ...prevState,
+      [key]: {
+        ...prevState[key],
+        selected: !prevState[key].selected
+      }
+    }));
   };
 
-  
-
-  const handleAddPokemon = () => {
-    const data = {
-        "abilities": [
-        "keen-eye",
-        "tangled-feet",
-        "big-pecks"
-      ],
-      "stats": {
-        "hp": 63,
-        "attack": 60,
-        "defense": 55,
-        "special-attack": 50,
-        "special-defense": 50,
-        "speed": 71
-      },
-      "type": "flying",
-      "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/17.png",
-      "name": "pidgeotto",
-      "base_experience": 122,
-      "height": 11,
-      "id": 17,
-      "values": {
-        "top": "A",
-        "right": 2,
-        "bottom": 7,
-        "left": 5
-      }
-    };
-
-    firebase.addPokemon(data, () => {});
+  const handleStartGameClick = () => {
+    history.push('/game/board');
   };
 
   return (
@@ -82,20 +44,31 @@ const StartPage = () => {
           colorBg="#202736"
           titleColor="#fff"
         >
-          <button className={style.NewPokemonBtn} onClick={handleAddPokemon}>Add New Pokemon</button>
+          <button 
+            className={style.NewPokemonBtn} 
+            onClick={handleStartGameClick}
+            disabled={Object.keys(pokemonContext.pokemon).length < 5}
+          >
+            Start Game
+          </button>
           <div className={style.flex}>
               {
-                Object.entries(pokemons).map(([key, {name, img, id, type, values, active, selected}]) => 
-                <PokemonCard 
+                Object.entries(pokemons).map(([key, {name, img, id, type, values, selected}]) => 
+                <PokemonCard
+                  className={style.card} 
                   key={key}
                   id={id}
                   name={name}
                   values={values}
                   img={img}
                   type={type}
-                  onClickCard={(id) => handleChangeActive(id)}
-                  isActive={active}
-                  inSelected={selected}/>)
+                  onClickCard={() => {
+                    if (Object.keys(pokemonContext.pokemon).length < 5 || selected) {
+                      handleChangeSelected(key)
+                    }
+                  }}
+                  isActive={true}
+                  isSelected={selected}/>)
               }
           </div>
      </Layout>

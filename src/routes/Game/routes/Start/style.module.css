@@ -1,27 +1,36 @@
 .flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 48px;
 }
 
 .NewPokemonBtn {
   font-size: 18px;
   font-weight: normal;
   font-style: italic;
-  color: #fafafa;
+  color: #0a0a0a;
   line-height: 32px;
-  background: none;
-  border: 3px solid#fafafa;
-  border-radius: 5px;
+  background: #fce756;
+  border: 5px solid#e9bb01;
+  border-radius: 8px;
   padding: 10px 50px;
-  margin: 20px 95px;
+  margin-bottom: 40px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .NewPokemonBtn:hover {
-  border: 3px solid #f300b4;
-  color: #f300b4;
+  border: 5px solid #c58700;
   transition: all 0.3s;
+}
+.NewPokemonBtn:disabled {
+  border: 5px solid #545454;
+  background: #919191;
+  transition: all 0.3s;
+}
+
+.card {
+  width: 280px;
+  height: 380px;
+  cursor: pointer;
 }
