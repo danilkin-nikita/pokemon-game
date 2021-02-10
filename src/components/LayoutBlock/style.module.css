@@ -61,7 +61,7 @@
   grid-column-end: span 2;
   background: #ffffffaa;
   padding: 2rem;
-  text-align: justify;
+  text-align: center;
 }
 
 @media only screen and (max-width: 1149px) {
@@ -76,7 +76,6 @@
 
   .root .desc {
     grid-column-end: -1;
-    text-align: center;
   }
 }
 
